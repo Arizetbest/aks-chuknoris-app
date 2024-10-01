@@ -1,3 +1,18 @@
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 3.0"  # Specify the version as needed
+    }
+  }
+
+  required_version = ">= 1.0"  # Specify the required Terraform version
+}
+
+provider "azurerm" {
+  features {}  # Required, but can be empty
+}
+
 resource "azurerm_resource_group" "rg" {
   name     = "apache-k8s-rg"
   location = "Poland Central"
@@ -27,5 +42,3 @@ resource "azurerm_container_registry" "acr" {
   sku                 = "Basic"
   admin_enabled       = true
 }
-
-

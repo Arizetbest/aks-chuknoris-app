@@ -1,0 +1,6 @@
+providers.tf
+node_modules/
+*.tfstate
+*.tfstate.backup
+**/.vscode/
+

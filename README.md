@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Random Chuck Norris Jokes
 
 **Tutorial**: [How to Deploy Node.js Applications with Docker](https://betterstack.com/community/guides/scaling-nodejs/dockerize-nodejs/).
@@ -33,3 +34,6 @@ npm start
 
 The code used in this project and in the linked tutorial are licensed under the
 [Apache License, Version 2.0](LICENSE).
+=======
+# aks-chuknoris-app
+>>>>>>> dcead3da8fa17b05bd1bc53ebbc97f350d2dabbd

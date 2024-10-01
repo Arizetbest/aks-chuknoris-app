@@ -26,7 +26,7 @@ jobs:
 
       # Initialize Terraform
       - name: 'Terraform Init'
-        working-directory: ./terraform
+        working-directory: terraform
         run: terraform init
 
       # Terraform Plan

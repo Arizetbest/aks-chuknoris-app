@@ -56,7 +56,7 @@ jobs:
 
       # Get AKS credentials
       - name: Get AKS Credentials
-        run: az aks get-credentials --resource-group ${{ secrets.AKS_RESOURCE_GROUP }} --name ${{ secrets.AKS_CLUSTER_NAME }} --overwrite-existing
+        run: az aks get-credentials --resource-group apache-k8s-rg --name apache-aks-cluster --overwrite-existing
 
       # Update Kubernetes deployment with the new image
       - name: 'Deploy to AKS'

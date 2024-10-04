@@ -31,14 +31,12 @@ jobs:
           az acr login --name ${{ secrets.ACR_NAME }}
 
       # Build the Docker image
-      - name: 'Build Docker image'
-        run: |
-          docker build . -t $REGISTRY/$IMAGE_NAME:latest
+      - name: Build Docker image
+        run: docker build . -t ${{ secrets.ACR_NAME }}.azurecr.io/nodejs-app:latest
 
       # Push the Docker image to ACR
-      - name: 'Push Docker image to ACR'
-        run: |
-          docker push $REGISTRY/$IMAGE_NAME:latest
+      - name: Push Docker image to ACR
+        run: docker push ${{ secrets.ACR_NAME }}.azurecr.io/nodejs-app:latest
 
   deploy-to-aks:
     name: Deploy to AKS

@@ -55,9 +55,8 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       # Get AKS credentials
-      - name: 'Get AKS Credentials'
-        run: |
-          az aks get-credentials --resource-group ${{ secrets.AKS_RESOURCE_GROUP }} --name ${{ secrets.AKS_CLUSTER_NAME }}
+      - name: Get AKS Credentials
+        run: az aks get-credentials --resource-group ${{ secrets.AKS_RESOURCE_GROUP }} --name ${{ secrets.AKS_CLUSTER_NAME }} --overwrite-existing
 
       # Update Kubernetes deployment with the new image
       - name: 'Deploy to AKS'

@@ -61,7 +61,7 @@ jobs:
       # Update Kubernetes deployment with the new image
       - name: 'Deploy to AKS'
         run: |
-          kubectl set image deployment/nodejs-app nodejs-app=$REGISTRY/$IMAGE_NAME:latest --record
+          kubectl set image deployment/nodejs-app nodejs-app=apacheacr2011003.azurecr.io/nodejs-app:latest --record --overwrite-existing
 
       # Apply Kubernetes manifests
       - name: 'Apply Kubernetes manifests'

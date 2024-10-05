@@ -15,28 +15,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
+      # Step 1: Checkout the repository
       - name: 'Checkout repository'
         uses: actions/checkout@v3
 
-      # Log in to Azure
+      # Step 2: Log in to Azure
       - name: 'Log in to Azure'
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # Log in to ACR
+      # Step 3: Log in to ACR
       - name: 'Log in to Azure Container Registry'
         run: |
           az acr login --name ${{ secrets.ACR_NAME }}
 
-      # Build the Docker image
+      # Step 4: Build the Docker image
       - name: Build Docker image
-        run: docker build . -t ${{ secrets.ACR_NAME }}.azurecr.io/nodejs-app:latest
+        run: docker build . -t $REGISTRY/$IMAGE_NAME:latest
 
-      # Push the Docker image to ACR
+      # Step 5: Push the Docker image to ACR
       - name: Push Docker image to ACR
-        run: docker push ${{ secrets.ACR_NAME }}.azurecr.io/nodejs-app:latest
+        run: docker push $REGISTRY/$IMAGE_NAME:latest
 
   deploy-to-aks:
     name: Deploy to AKS
@@ -44,27 +44,27 @@ jobs:
     needs: build-and-push
 
     steps:
-      # Checkout the repository
+      # Step 1: Checkout the repository
       - name: 'Checkout repository'
         uses: actions/checkout@v3
 
-      # Log in to Azure
+      # Step 2: Log in to Azure
       - name: 'Log in to Azure'
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # Get AKS credentials
+      # Step 3: Get AKS credentials
       - name: Get AKS Credentials
-        run: az aks get-credentials --resource-group apache-k8s-rg --name apache-aks-cluster 
+        run: az aks get-credentials --resource-group apache-k8s-rg --name apache-aks-cluster --overwrite-existing
 
-      # Update Kubernetes deployment with the new image
-      - name: 'Deploy to AKS'
-        run: |
-          kubectl set image deployment/nodejs-app nodejs-app=apacheacr2011003.azurecr.io/nodejs-app:latest --record 
-
-      # Apply Kubernetes manifests
+      # Step 4: Apply Kubernetes manifests (Create or Update Resources)
       - name: 'Apply Kubernetes manifests'
         run: |
-          kubectl apply -f Kubernetes/deployment.yaml
-          kubectl apply -f Kubernetes/service.yaml
+          kubectl apply -f kubernetes/deployment.yaml
+          kubectl apply -f kubernetes/service.yaml
+
+      # Step 5: Update Kubernetes deployment with the new image
+      - name: 'Update AKS Deployment Image'
+        run: |
+          kubectl set image deployment/nodejs-app nodejs-app=$REGISTRY/$IMAGE_NAME:latest --record

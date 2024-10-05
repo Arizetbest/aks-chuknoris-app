@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: nodejs-app
-        image: apacheacr2011003.azurecr.io/nodejs-app:latest --overwrite-existing
+        image: apacheacr2011003.azurecr.io/nodejs-app:latest
         ports:
         - containerPort: 3000
         resources:

@@ -56,12 +56,12 @@ jobs:
 
       # Get AKS credentials
       - name: Get AKS Credentials
-        run: az aks get-credentials --resource-group apache-k8s-rg --name apache-aks-cluster --overwrite-existing
+        run: az aks get-credentials --resource-group apache-k8s-rg --name apache-aks-cluster 
 
       # Update Kubernetes deployment with the new image
       - name: 'Deploy to AKS'
         run: |
-          kubectl set image deployment/nodejs-app nodejs-app=apacheacr2011003.azurecr.io/nodejs-app:latest --record --overwrite-existing
+          kubectl set image deployment/nodejs-app nodejs-app=apacheacr2011003.azurecr.io/nodejs-app:latest --record 
 
       # Apply Kubernetes manifests
       - name: 'Apply Kubernetes manifests'
